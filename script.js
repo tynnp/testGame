@@ -76,12 +76,23 @@ function startGame() {
     timerInterval = setInterval(updateTimer, 1000);
     document.getElementById('start-btn').disabled = true;
 
+    const cards = document.querySelectorAll('.card');
+
+    // Lật tất cả các thẻ cùng một lúc
+    cards.forEach((card) => {
+      card.classList.add('flipped');
+    });
+
+    // Sau 0.75 giây, úp ngược lại tất cả các thẻ
     setTimeout(() => {
-      document.getElementById('game-board').innerHTML = '';
-      createGameBoard();
-    }, 500);
+      cards.forEach((card) => {
+        card.classList.remove('flipped');
+      });
+
+    }, 750); 
   }
 }
+
 
 function endGame(isWinner) {
   clearInterval(timerInterval);
@@ -108,6 +119,8 @@ function resetGame() {
   document.getElementById('score').innerText = `Điểm: ${score}`;
   document.getElementById('timer').innerText = `Thời gian còn lại: ${timerSeconds}s`;
   document.getElementById('start-btn').disabled = false;
+
+  createGameBoard();
 }
 
 function createGameBoard() {
