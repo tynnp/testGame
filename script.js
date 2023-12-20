@@ -93,18 +93,26 @@ function startGame() {
   }
 }
 
-
 function endGame(isWinner) {
   clearInterval(timerInterval);
 
+  const overlay = document.getElementById('overlay');
+  const message = document.getElementById('message');
+  const resetBtn = document.getElementById('reset-btn');
+
   if (isWinner) {
-    const discountPercentage = Math.min(100, score); // Giảm giá tối đa 100%
-    alert(`Chúc mừng bạn đã nhận được ưu đãi ${discountPercentage}% từ trò chơi!`);
+      const discountPercentage = Math.min(100, score);
+      message.innerText = `Chúc mừng bạn đã nhận được ưu đãi ${discountPercentage}% từ trò chơi!`;
   } else {
-    alert('Tiếc quá, bạn không nhận được ưu đãi từ trò chơi rồi!');
+      message.innerText = 'Tiếc quá, bạn không nhận được ưu đãi từ trò chơi rồi!';
   }
 
-  resetGame();
+  overlay.style.display = 'flex';
+
+  resetBtn.addEventListener('click', function () {
+      overlay.style.display = 'none';
+      resetGame();
+  });
 }
 
 function resetGame() {
